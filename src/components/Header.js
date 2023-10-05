@@ -23,7 +23,7 @@ export function Header() {
           </Nav>
           <Nav>
             {isAuth ? <Nav.Link href="/logout">Logout</Nav.Link>
-              : location.pathname == '/register' ? <Nav.Link href="/login">Login</Nav.Link>
+              : location.pathname === '/register' ? <Nav.Link href="/login">Login</Nav.Link>
                 : <Nav.Link href="/register">Register</Nav.Link>}
           </Nav>
       </Navbar>

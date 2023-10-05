@@ -33,7 +33,7 @@ function Spotify() {
                   //window.location.replace(res.data['url']);
                   window.open(res.data['url'],'callBackWindow','height=500,width=400');
                   window.addEventListener("storage",function(event){
-                    if (event.key == "spotify_token"){
+                    if (event.key === "spotify_token"){
                       var spotifyToken = event.newValue;
                       console.log(spotifyToken);
                       //do things with spotify API using your access token here!!

@@ -1,6 +1,5 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import React, { Component, Fragment } from 'react';
 import Header from './components/Header';
 import {Login} from './components/Login';
 import {Register} from './components/Register';
