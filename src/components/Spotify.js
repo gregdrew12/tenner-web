@@ -17,47 +17,32 @@ function Spotify() {
         email: localStorage.getItem('email')
       }
     })
-        .then(res => {
-            setIsAuth(res.data['status']);
-            if (!res.data['status']) {
-            axios.get("http://localhost:8000/spotify/get-auth-url", {
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              params: {
-                email: localStorage.getItem('email')
-              } 
-            })
-                .then(res => {
-                  //window.location.replace(res.data['url']);
-                  window.open(res.data['url'],'callBackWindow','height=500,width=400');
-                  window.addEventListener("storage",function(event){
-                    if (event.key === "spotify_token"){
-                      var spotifyToken = event.newValue;
-                      console.log(spotifyToken);
-                      //do things with spotify API using your access token here!!
-                    }
-                  });
-                });
-            }
-        });
-    };
-
-    const getCurrentSong = () => {
-      fetch("http://localhost:8000/spotify/current-song")
-        .then((response) => {
-          if (!response.ok) {
-            return {};
-          } else {
-            return response.json();
-          }
+    .then(res => {
+      setIsAuth(res.data['status']);
+      if (!res.data['status']) {
+        axios.get("http://localhost:8000/spotify/get-auth-url", {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          params: {
+            email: localStorage.getItem('email')
+          } 
         })
-        .then((data) => {
-          setSong(data);
-          console.log(data);
+        .then(res => {
+          window.location.replace(res.data['url']);
         });
-    }
+      }
+    });
+  };
+
+  const getCurrentSong = () => {
+    axios.get("http://localhost:8000/spotify/current-song")
+    .then(res => {
+      setSong(res.data);
+      console.log(res.data);
+    });
+  }
 
   return (
     <Fragment>
