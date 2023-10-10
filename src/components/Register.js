@@ -28,11 +28,10 @@ export const Register = () => {
         }
         else {
             axios.post(API_URL, user).then(res => {
-                if (res.data === 'dupe') {
-                    setError('There is already an account associated with this Email.')
-                }
-                else {
+                if(res.status === 200) {
                     window.location.href = '/login';
+                } else {
+                    setError('There is already an account associated with this Email.')
                 }
             });
         }              
