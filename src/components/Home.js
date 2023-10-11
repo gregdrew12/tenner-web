@@ -10,27 +10,14 @@ import Spotify from "./Spotify";
 
 const Home = () => {
 
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState(''); 
+  const [users, setUsers] = useState([]); 
 
   useEffect(() => {
     resetState();
     if(localStorage.getItem('access_token') === null){                   
       window.location.href = '/login'
     }
-    else{
-      (async () => {
-        try {
-          const {data} = await axios.get('http://localhost:8000/home/', {
-          headers: {
-            'Content-Type': 'application/json'
-          }});
-          setMessage(data.message);
-        } catch (e) {
-          console.log('not auth')
-        }
-      })()
-    };
+    // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
   }, []);
 
   const getUsers = () => {

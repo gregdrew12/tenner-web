@@ -9,7 +9,8 @@ function Logout() {
                 const {data} = await axios.post('http://localhost:8000/logout/',{
                     refresh_token:localStorage.getItem('refresh_token')
                 } ,{headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }}, {withCredentials: true});
 
                 console.log('logout', data)
@@ -21,17 +22,6 @@ function Logout() {
             }
         })();
     }, []);
-
-
-        
-
-        // console.log(data)
-        // localStorage.clear();
-        // localStorage.setItem('token', data.access);
-        // localStorage.setItem('refresh_token', data.refresh);
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-        // window.location.href = '/'
-
 
     return (
         <div></div>
