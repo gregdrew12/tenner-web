@@ -12,9 +12,6 @@ function Spotify() {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      },
-      params: {
-        email: localStorage.getItem('email')
       }
     })
     .then(res => {
@@ -23,10 +20,7 @@ function Spotify() {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-          },
-          params: {
-            email: localStorage.getItem('email')
-          } 
+          }
         })
         .then(res => {
           window.location.replace(res.data['url']);
