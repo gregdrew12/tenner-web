@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
+import { API_URL } from "../constants";
 
 function Spotify() {
 
-  const [isAuth, setIsAuth] = useState(false)
   const [song, setSong] = useState([])
 
   const authenticateSpotify = () => {
-    axios.get("http://localhost:8000/spotify/is-authenticated", {
+    axios.get(API_URL + "spotify/is-authenticated", {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -18,9 +18,8 @@ function Spotify() {
       }
     })
     .then(res => {
-      setIsAuth(res.data['status']);
       if (!res.data['status']) {
-        axios.get("http://localhost:8000/spotify/get-auth-url", {
+        axios.get(API_URL + "spotify/get-auth-url", {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -37,7 +36,7 @@ function Spotify() {
   };
 
   const getCurrentSong = () => {
-    axios.get("http://localhost:8000/spotify/current-song")
+    axios.get(API_URL + "spotify/current-song")
     .then(res => {
       setSong(res.data);
       console.log(res.data);

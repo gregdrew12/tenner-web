@@ -27,7 +27,7 @@ export const Register = () => {
             setError('Password doesn\'t meet the given requirements.')
         }
         else {
-            axios.post(API_URL, user).then(res => {
+            axios.post(API_URL + 'api/users/', user).then(res => {
                 if(res.status === 200) {
                     window.location.href = '/login';
                 } else {

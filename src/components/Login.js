@@ -1,6 +1,7 @@
 // Import the react JS packages 
 import axios from "axios";
 import {useState} from "react";
+import { API_URL } from "../constants";
 
 // Define the Login function.
 export const Login = () => {
@@ -18,7 +19,7 @@ export const Login = () => {
         };
 
         // Create the POST requuest
-        const {data} = await axios.post('http://localhost:8000/token/', user ,{headers: {
+        const {data} = await axios.post(API_URL + 'token/', user ,{headers: {
             'Content-Type': 'application/json'
         }}, {withCredentials: true});
         

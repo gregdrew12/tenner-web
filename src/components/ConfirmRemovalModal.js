@@ -13,7 +13,7 @@ function ConfirmRemovalModal(props) {
   };
 
   const deleteUser = id => {
-    axios.delete(API_URL + id).then(() => {
+    axios.delete(API_URL + 'api/users/' + id).then(() => {
       props.resetState();
       toggle();
     });

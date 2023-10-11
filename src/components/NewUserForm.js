@@ -21,7 +21,7 @@ function NewUserForm(props) {
 
   const createUser = e => {
     e.preventDefault();
-    axios.post(API_URL, user).then(() => {
+    axios.post(API_URL + 'api/users/', user).then(() => {
       props.resetState();
       props.toggle();
     });
@@ -29,7 +29,7 @@ function NewUserForm(props) {
 
   const editUser = e => {
     e.preventDefault();
-    axios.put(API_URL + user.pk, user).then(() => {
+    axios.put(API_URL + 'api/users/' + user.pk, user).then(() => {
       props.resetState();
       props.toggle();
     });

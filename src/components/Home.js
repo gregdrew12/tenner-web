@@ -21,7 +21,7 @@ const Home = () => {
   }, []);
 
   const getUsers = () => {
-    axios.get(API_URL).then(res => setUsers(res.data));
+    axios.get(API_URL + 'api/users/').then(res => setUsers(res.data));
   };
 
   const resetState = () => {
