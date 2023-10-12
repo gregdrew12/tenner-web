@@ -3,7 +3,7 @@ import { Col, Container, Row } from "reactstrap";
 import UserList from "./UserList";
 import NewUserModal from "./NewUserModal";
 
-import axios from "axios";
+import axios from "axios"
 
 import { API_URL } from "../constants";
 import Spotify from "./Spotify";
@@ -11,13 +11,14 @@ import Spotify from "./Spotify";
 const Home = () => {
 
   const [users, setUsers] = useState([]); 
+  console.log(localStorage.getItem("access_token"));
 
   useEffect(() => {
     resetState();
     if(localStorage.getItem('access_token') === null){                   
       window.location.href = '/login'
     }
-    // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    //axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
   }, []);
 
   const getUsers = () => {

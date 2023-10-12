@@ -7,14 +7,14 @@ function Logout() {
     useEffect(() => {
         (async () => {
             try {
-                const {data} = await axios.post(API_URL + 'logout/',{
+                const response = await axios.post(API_URL + 'logout/',{
                     refresh_token:localStorage.getItem('refresh_token')
                 } ,{headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }}, {withCredentials: true});
 
-                console.log('logout', data)
+                console.log('logout', response.data)
                 localStorage.clear();
                 axios.defaults.headers.common['Authorization'] = null;
                 window.location.href = '/login'
