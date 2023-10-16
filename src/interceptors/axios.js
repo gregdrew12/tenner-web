@@ -38,7 +38,9 @@ axios.interceptors.response.use((response) => {
         console.log(originalRequest.data)
         console.log(response.data.access)
         originalRequest.headers.Authorization = 'Bearer ' + response.data.access
-        originalRequest.data = {'refresh_token':response.data.refresh}
+        if(originalRequest.headers.Authorization !== undefined) {
+            originalRequest.data = {'refresh_token':response.data.refresh}
+        }
         console.log(originalRequest.headers.Authorization)
         
         return axios(originalRequest);
