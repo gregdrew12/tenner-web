@@ -30,16 +30,11 @@ function Spotify() {
   };
 
   const getCurrentSong = () => {
-    axios.get(API_URL + "spotify/current-song", {
+    axios.post(API_URL + "spotify/playback", {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       }
-    })
-    .then(res => {
-      if(res.status === 200 || res.status === 204) {
-        setSong(res.data);
-      };
     });
   }
 
