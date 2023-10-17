@@ -17,23 +17,25 @@ export const Login = () => {
             email: email,
             password: password
         };
-
-        // Create the POST requuest
-        const {data} = await axios.post(API_URL + 'token/', user ,{headers: {
-            'Content-Type': 'application/json'
-        }}, {withCredentials: true});
         
-        if (typeof(data) === 'undefined') {
+        try {
+            // Create the POST requuest
+            const {data} = await axios.post(API_URL + 'token/', user ,{headers: {
+                'Content-Type': 'application/json'
+            }}, {withCredentials: true});
+
+            // Initialize the access & refresh token in localstorage.
+            setError('')     
+            localStorage.clear();
+            localStorage.setItem('email', email);
+            localStorage.setItem('access_token', data.access);
+            localStorage.setItem('refresh_token', data.refresh);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
+            window.location.href = '/'
+        } catch (error) {
+            console.log(error.response.status);
             setError('Invalid email or password.')
         }
-
-        // Initialize the access & refresh token in localstorage.      
-        localStorage.clear();
-        localStorage.setItem('email', email);
-        localStorage.setItem('access_token', data.access);
-        localStorage.setItem('refresh_token', data.refresh);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
-        window.location.href = '/'
     }
     return(
         <div className="Auth-form-container">
