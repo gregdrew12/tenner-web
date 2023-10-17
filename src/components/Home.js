@@ -11,6 +11,7 @@ import Spotify from "./Spotify";
 const Home = () => {
 
   const [users, setUsers] = useState([]); 
+  const [playback, setPlayback] = useState({});
   console.log(localStorage.getItem("access_token"));
 
   useEffect(() => {
@@ -25,8 +26,18 @@ const Home = () => {
     axios.get(API_URL + 'api/users/').then(res => setUsers(res.data));
   };
 
+  const getPlayback = () => {
+    axios.get(API_URL + "spotify/playback", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+    }).then(res => {setPlayback(res.data)});
+  }
+
   const resetState = () => {
     getUsers();
+    getPlayback();
   };
 
   return (
@@ -35,6 +46,7 @@ const Home = () => {
         <Col>
           <UserList
             users={users}
+            playback={playback}
             resetState={resetState}
           />
         </Col>
