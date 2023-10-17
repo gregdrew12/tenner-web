@@ -21,9 +21,9 @@ function ConfirmRemovalModal(props) {
 
   return (
     <Fragment>
-      <Button color="danger" onClick={() => toggle()}>
+      {/* <Button color="danger" onClick={() => toggle()}>
         Remove
-      </Button>
+      </Button> */}
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           Do you really wanna delete the user?

@@ -31,7 +31,7 @@ function NewUserModal(props) {
 
   return (
     <Fragment>
-      {button}
+      {/* {button} */}
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
 
