@@ -15,11 +15,19 @@ const Home = () => {
   console.log(localStorage.getItem("access_token"));
 
   useEffect(() => {
-    resetState();
     if(localStorage.getItem('access_token') === null){                   
       window.location.href = '/login'
     }
-    //axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+
+    resetState();
+    const poll = () => {
+      resetState();
+    };
+    const pollInterval = setInterval(poll, 5000);
+
+    return () => {
+      clearInterval(pollInterval);
+    };
   }, []);
 
   const getUsers = () => {
