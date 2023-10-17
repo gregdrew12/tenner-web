@@ -6,12 +6,13 @@ import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
 function UserList(props) {
   const users = props.users;
+  const playback = props.playback;
   return (
     <Table dark>
       <thead>
         <tr>
           <th>Email</th>
-          <th>Registration</th>
+          <th>Song</th>
           <th></th>
         </tr>
       </thead>
@@ -26,7 +27,7 @@ function UserList(props) {
           users.map(user => (
             <tr key={user.id}>
               <td>{user.email}</td>
-              <td>{user.date_joined.slice(0, 10)}</td>
+              <td>{user.id in playback ? playback[user.id]['title'] + ' by ' + playback[user.id]['artists'] : null}</td>
               <td align="center">
                 <NewUserModal
                   create={false}

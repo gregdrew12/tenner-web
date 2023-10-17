@@ -5,7 +5,7 @@ import { API_URL } from "../constants";
 
 function Spotify() {
 
-  const [song, setSong] = useState({})
+  const [playback, setPlayback] = useState({})
 
   const authenticateSpotify = () => {
     axios.get(API_URL + "spotify/is-authenticated", {
@@ -29,7 +29,7 @@ function Spotify() {
     });
   };
 
-  const getCurrentSong = () => {
+  const updatePlayback = () => {
     axios.post(API_URL + "spotify/playback", {
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,6 @@ function Spotify() {
 
   return (
     <Fragment>
-      <br/>
       <Button
         color="primary"
         className="float-right"
@@ -51,17 +50,15 @@ function Spotify() {
       </Button>
       {localStorage.getItem('spotify_token')}
       <br/>
+      <br/>
       <Button
-        color="green"
+        color="primary"
         className="float-right"
-        onClick={getCurrentSong}
+        onClick={updatePlayback}
         style={{ minWidth: "200px" }}
       >
-        Current Song
+        Update Playback
       </Button>
-      <h1>
-        {Object.keys(song).length > 0 ? song['title'] : null}
-      </h1>
     </Fragment>
   );
 }
