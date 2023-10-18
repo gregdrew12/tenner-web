@@ -1,6 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 import { API_URL } from "../constants";
+import './Login.css'
 
 export const Register = () => {
     
