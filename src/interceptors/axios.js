@@ -21,27 +21,32 @@ axios.interceptors.response.use((response) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
-        const response = await axios.post('http://localhost:8000/token/refresh/', {
-            refresh:localStorage.getItem('refresh_token')
-        },{
-            headers: {
-                'Content-Type': 'application/json',
+
+        try {
+            const response = await axios.post('http://localhost:8000/token/refresh/', {
+                refresh:localStorage.getItem('refresh_token')
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            },{withCredentials: true});  
+                    
+            if (response.status === 200) {
+                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem('refresh_token', response.data.refresh);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
             }
-        },{withCredentials: true});  
-                
-        if (response.status === 200) {
-            localStorage.setItem('access_token', response.data.access);
-            localStorage.setItem('refresh_token', response.data.refresh);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+            console.log(originalRequest.headers.Authorization)
+            console.log(originalRequest.data)
+            console.log(response.data.access)
+            originalRequest.headers.Authorization = 'Bearer ' + response.data.access
+            if(originalRequest.headers.Authorization !== undefined) {
+                originalRequest.data = {'refresh_token':response.data.refresh}
+            }
+            console.log(originalRequest.headers.Authorization)
+        } catch (error) {
+            console.log('Axios interceptor error: ' + error)
         }
-        console.log(originalRequest.headers.Authorization)
-        console.log(originalRequest.data)
-        console.log(response.data.access)
-        originalRequest.headers.Authorization = 'Bearer ' + response.data.access
-        if(originalRequest.headers.Authorization !== undefined) {
-            originalRequest.data = {'refresh_token':response.data.refresh}
-        }
-        console.log(originalRequest.headers.Authorization)
         
         return axios(originalRequest);
     }

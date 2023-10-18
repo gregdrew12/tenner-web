@@ -28,7 +28,7 @@ export const Register = () => {
         }
         else {
             axios.post(API_URL + 'api/users/', user).then(res => {
-                if(res.status === 200) {
+                if(res.status === 201) {
                     window.location.href = '/login';
                 } else {
                     setError('There is already an account associated with this Email.')
