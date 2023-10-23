@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../constants";
 
 // // Request interceptor for API calls
 // axios.interceptors.request.use(
@@ -23,7 +24,7 @@ axios.interceptors.response.use((response) => {
         originalRequest._retry = true;
 
         try {
-            const response = await axios.post('http://localhost:8000/token/refresh/', {
+            const response = await axios.post(API_URL + 'token/refresh/', {
                 refresh:localStorage.getItem('refresh_token')
             },{
                 headers: {
