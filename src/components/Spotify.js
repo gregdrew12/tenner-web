@@ -29,15 +29,6 @@ function Spotify() {
     });
   };
 
-  const updatePlayback = () => {
-    axios.post(API_URL + "spotify/playback", {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }
-    });
-  }
-
   return (
     <Fragment>
       <Button
@@ -47,17 +38,6 @@ function Spotify() {
         style={{ minWidth: "200px" }}
       >
         Link Spotify Account
-      </Button>
-      {localStorage.getItem('spotify_token')}
-      <br/>
-      <br/>
-      <Button
-        color="primary"
-        className="float-right"
-        onClick={updatePlayback}
-        style={{ minWidth: "200px" }}
-      >
-        Update Playback
       </Button>
     </Fragment>
   );
