@@ -12,7 +12,6 @@ const Home = () => {
 
   const [users, setUsers] = useState([]); 
   const [playback, setPlayback] = useState({});
-  console.log(localStorage.getItem("access_token"));
 
   useEffect(() => {
     if(localStorage.getItem('access_token') === null){                   

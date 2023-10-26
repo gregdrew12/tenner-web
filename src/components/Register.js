@@ -6,6 +6,7 @@ import './Login.css'
 export const Register = () => {
     
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRe, setPasswordRe] = useState('')
     const [error, setError] = useState('')
@@ -14,6 +15,7 @@ export const Register = () => {
         e.preventDefault();
         const user = {
             email: email,
+            username: username,
             password: password,
             passwordRe: passwordRe
         }; 
@@ -28,13 +30,23 @@ export const Register = () => {
             setError('Password doesn\'t meet the given requirements.')
         }
         else {
-            axios.post(API_URL + 'api/users/', user).then(res => {
+            try {
+                const res = await axios.post(API_URL + 'api/users/', user)
                 if(res.status === 201) {
                     window.location.href = '/login';
-                } else {
-                    setError('There is already an account associated with this Email.')
+                }      
+            } catch(error) {
+                console.log(error.response.data)
+                if ('email' in error.response.data) {
+                    setError('There is already an account associated with this email.')
                 }
-            });
+                else if ('username' in error.response.data) {
+                    setError('This username is already taken.')
+                }
+                else {
+                    setError('There was an error creating your account. Please try again.')
+                }
+            }
         }              
     };
 
@@ -47,18 +59,27 @@ export const Register = () => {
                     <div className="form-group mt-3">
                         <label>Email</label>
                         <input className="form-control mt-1" 
-                            placeholder="Enter Email" 
+                            placeholder="Enter email" 
                             name='email'  
                             type='text' value={email}
                             required 
                             onChange={e => setEmail(e.target.value)}/>
                     </div>
                     <div className="form-group mt-3">
+                        <label>Username</label>
+                        <input className="form-control mt-1" 
+                            placeholder="Choose username" 
+                            name='username'  
+                            type='text' value={username}
+                            required 
+                            onChange={e => setUsername(e.target.value)}/>
+                    </div>
+                    <div className="form-group mt-3">
                         <label>Password</label>
                         <input name='password' 
                             type="password"     
                             className="form-control mt-1"
-                            placeholder="Choose password"
+                            placeholder="Set password"
                             value={password}
                             required
                             onChange={e => setPassword(e.target.value)}/>

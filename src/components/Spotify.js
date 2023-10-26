@@ -4,9 +4,7 @@ import axios from "axios";
 import { API_URL } from "../constants";
 
 function Spotify() {
-
-  const [playback, setPlayback] = useState({})
-
+  
   const authenticateSpotify = () => {
     axios.get(API_URL + "spotify/is-authenticated", {
       headers: {
