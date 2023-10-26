@@ -9,11 +9,27 @@ import axios from "axios"
 import { API_URL } from "../constants";
 
 const Profile = () => {
+    const [user, setUser] = useState([]); 
+    const { username } = useParams();
 
-    let { user } = useParams();
+    useEffect(() => {
+        console.log(username)
+        axios.get(API_URL + 'api/users/', {
+            params: {
+                username: username
+            }
+        }).then(res => setUser(res.data));
+    }, []);
 
     return (
-        <h1>{user}</h1>
+        <div>
+            {user.length === 1 ? (
+                <div>
+                    <h1>{user[0].username}</h1>
+                    <h2></h2>
+                </div>
+            ) : null}
+        </div>
     )
 }
 

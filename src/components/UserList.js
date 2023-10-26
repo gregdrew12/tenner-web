@@ -1,8 +1,6 @@
 import React from "react";
 import { Table } from "reactstrap";
-import NewUserModal from "./NewUserModal";
-
-import ConfirmRemovalModal from "./ConfirmRemovalModal";
+import Nav from 'react-bootstrap/Nav';
 
 function UserList(props) {
   const users = props.users;
@@ -11,9 +9,8 @@ function UserList(props) {
     <Table dark>
       <thead>
         <tr>
-          <th>Email</th>
+          <th>User</th>
           <th>Song</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -26,20 +23,10 @@ function UserList(props) {
         ) : (
           users.map(user => (
             <tr key={user.id}>
-              <td>{user.email}</td>
-              <td>{user.id in playback ? playback[user.id]['title'] + ' by ' + playback[user.id]['artists'] : null}</td>
-              <td align="center">
-                <NewUserModal
-                  create={false}
-                  user={user}
-                  resetState={props.resetState}
-                />
-                &nbsp;&nbsp;
-                <ConfirmRemovalModal
-                  id={user.id}
-                  resetState={props.resetState}
-                />
+              <td>
+                <Nav.Link href={`/${user.username}/`}>{user.username}{user.email === localStorage.getItem('email') ? ' (Me)' : null}</Nav.Link>
               </td>
+              <td>{user.id in playback ? playback[user.id]['title'] + ' by ' + playback[user.id]['artists'] : null}</td>
             </tr>
           ))
         )}

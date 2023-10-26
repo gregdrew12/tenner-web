@@ -6,10 +6,13 @@ import NewUserModal from "./NewUserModal";
 import axios from "axios"
 
 import { API_URL } from "../constants";
+import Loading from "./Loading";
 import Spotify from "./Spotify";
 
 const Home = () => {
 
+  const [usersLoading, setUsersLoading] = useState(true)
+  const [playbackLoading, setPlaybackLoading] = useState(true)
   const [users, setUsers] = useState([]); 
   const [playback, setPlayback] = useState({});
 
@@ -30,7 +33,10 @@ const Home = () => {
   }, []);
 
   const getUsers = () => {
-    axios.get(API_URL + 'api/users/').then(res => setUsers(res.data));
+    axios.get(API_URL + 'api/users/').then(res => {
+      setUsers(res.data)
+      setUsersLoading(false);
+    });
   };
 
   const getPlayback = () => {
@@ -39,7 +45,10 @@ const Home = () => {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       }
-    }).then(res => {setPlayback(res.data)});
+    }).then(res => {
+      setPlayback(res.data)
+      setPlaybackLoading(false);
+    });
   }
 
   const resetState = () => {
@@ -48,27 +57,31 @@ const Home = () => {
   };
 
   return (
-    <Container style={{ marginTop: "20px" }}>
-      <Row>
-        <Col>
-          <UserList
-            users={users}
-            playback={playback}
-            resetState={resetState}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <NewUserModal create={true} resetState={resetState} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Spotify/>
-        </Col>
-      </Row>
-    </Container>
+    <div>
+      {usersLoading || playbackLoading ? <Loading/> : (
+        <Container style={{ marginTop: "20px" }}>
+          <Row>
+            <Col>
+              <UserList
+                users={users}
+                playback={playback}
+                resetState={resetState}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <NewUserModal create={true} resetState={resetState} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Spotify/>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </div>
   );
 }
 
