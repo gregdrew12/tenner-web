@@ -22,14 +22,14 @@ const Profile = () => {
     }, []);
 
     return (
-        <div>
+        <>
             {user.length === 1 ? (
                 <div>
                     <h1>{user[0].username}</h1>
                     <h2></h2>
                 </div>
             ) : null}
-        </div>
+        </>
     )
 }
 

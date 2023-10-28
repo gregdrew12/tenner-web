@@ -15,7 +15,7 @@ export function Header() {
   }, [isAuth]);
 
   return (
-    <div>
+    <>
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Tenner</Navbar.Brand>            
           <Nav className="me-auto"> 
@@ -27,7 +27,7 @@ export function Header() {
                 : <Nav.Link href="/register">Register</Nav.Link>}
           </Nav>
       </Navbar>
-    </div>
+    </>
   );
 }
 

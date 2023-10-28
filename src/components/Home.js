@@ -57,7 +57,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <>
       {usersLoading || playbackLoading ? <Loading/> : (
         <Container style={{ marginTop: "20px" }}>
           <Row>
@@ -81,7 +81,7 @@ const Home = () => {
           </Row>
         </Container>
       )}
-    </div>
+    </>
   );
 }
 
