@@ -16,6 +16,22 @@ import { API_URL } from "../constants";
 //   });
 
 // Response interceptor for API calls
+
+let refreshPromise = false
+const clearPromise = () => refreshPromise = null;
+
+async function refreshToken() {
+    const response = await axios.post(API_URL + 'token/refresh/', {
+        refresh:localStorage.getItem('refresh_token')
+    },{
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    },{withCredentials: true});
+
+    return response;
+}
+
 axios.interceptors.response.use((response) => {
     return response
 }, async function (error) {
@@ -24,32 +40,25 @@ axios.interceptors.response.use((response) => {
         originalRequest._retry = true;
 
         try {
-            const response = await axios.post(API_URL + 'token/refresh/', {
-                refresh:localStorage.getItem('refresh_token')
-            },{
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            },{withCredentials: true});  
-                    
-            if (response.status === 200) {
-                localStorage.setItem('access_token', response.data.access);
-                localStorage.setItem('refresh_token', response.data.refresh);
-                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+            if (!refreshPromise) {
+                refreshPromise = refreshToken().finally(clearPromise);
             }
-            console.log(originalRequest.headers.Authorization)
-            console.log(originalRequest.data)
-            console.log(response.data.access)
+            const response = await refreshPromise;
+                    
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+        
             originalRequest.headers.Authorization = 'Bearer ' + response.data.access
             if(originalRequest.headers.Authorization !== undefined) {
                 originalRequest.data = {'refresh_token':response.data.refresh}
             }
-            console.log(originalRequest.headers.Authorization)
+
+            return axios(originalRequest);
         } catch (error) {
             console.log('Axios interceptor error: ' + error)
+            window.location.href = '/login'
         }
-        
-        return axios(originalRequest);
     }
     console.log(error.config)
     return Promise.reject(error);
