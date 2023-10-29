@@ -5,6 +5,7 @@ import axios from "axios"
 
 import { API_URL } from "../constants";
 import Loading from "./Loading";
+import './Profile.css'
 
 const Profile = () => {
     const [userLoading, setUserLoading] = useState(true);
@@ -28,7 +29,7 @@ const Profile = () => {
                 user.length === 1 ? (
                     <div>
                         <h1>{user[0].username}</h1>
-                        <h2></h2>
+                        <h2>{new Date(user[0].date_joined).toLocaleDateString()}</h2>
                     </div>
             ) : <h1>User does not exist.</h1>}
         </>
