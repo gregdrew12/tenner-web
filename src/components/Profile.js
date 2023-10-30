@@ -10,11 +10,13 @@ import './Profile.css'
 
 const Profile = () => {
     const [userLoading, setUserLoading] = useState(true);
-    const [user, setUser] = useState([]); 
+    const [followersLoading, setFollowersLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    const [followers, setFollowers] = useState([]);
     const { username } = useParams();
 
     const followUser = () => {
-        axios.put(API_URL + 'users/following/' + user[0].user + '/', {
+        axios.put(`${API_URL}users/${username}/follow/`, {
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -24,33 +26,48 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        axios.get(`${API_URL}users/`, {
-            params: {
-                username: username
+        axios.get(`${API_URL}users/${username}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             }
         }).then(res => {
             setUser(res.data);
             setUserLoading(false);
         });
+
+        axios.get(`${API_URL}users/${username}/followers/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        }).then(res => {
+            setFollowers(res.data)
+            setFollowersLoading(false);
+        })
     }, []);
 
     return (
         <>
-            {userLoading ? <Loading/> :
-                user.length === 1 ? (
+            {userLoading || followersLoading ? <Loading/> :
+                user.length !== null ? (
                     <>
-                        <h1>{user[0].username}</h1>
-                        <h2>{user[0].following.length}</h2>
-                        <div className="button-container">
-                            <Button
-                                color="primary"
-                                className="float-right"
-                                onClick={followUser}
-                                style={{ minWidth: "200px" }}
-                            >
-                                Follow
-                            </Button>
-                        </div>
+                        <h1>{user.username}</h1>
+                        <h2>Followers: {followers.length} Following: {user.following.length}</h2>
+                        {user.id.toString() !== localStorage.getItem('id') ? (
+                            <div className="button-container">
+                                <Button
+                                    color="primary"
+                                    className="float-right"
+                                    onClick={followUser}
+                                    style={{ minWidth: "200px" }}
+                                >
+                                    Follow
+                                </Button>
+                            </div>
+                        ) : null}
                     </>
             ) : <h1>User does not exist.</h1>}
         </>
