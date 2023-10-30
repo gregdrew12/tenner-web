@@ -24,14 +24,24 @@ export const Login = () => {
             const {data} = await axios.post(API_URL + 'token/', user ,{headers: {
                 'Content-Type': 'application/json'
             }}, {withCredentials: true});
+            setError('')
 
             // Initialize the access & refresh token in localstorage.
-            setError('')     
             localStorage.clear();
-            localStorage.setItem('email', email);
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data['access']}`;
+            const response = await axios.get(API_URL + 'api/users/', {
+                params: {
+                    email: email
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + data.access
+                }
+            });
+            localStorage.setItem('id', response.data[0].user);     
+            
             window.location.href = '/'
         } catch (error) {
             console.log(error.response.status);
