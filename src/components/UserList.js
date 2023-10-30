@@ -22,11 +22,11 @@ function UserList(props) {
           </tr>
         ) : (
           users.map(user => (
-            <tr key={user.id}>
+            <tr key={user.user}>
               <td>
-                <Nav.Link href={`/${user.username}/`}>{user.username}{user.email === localStorage.getItem('email') ? ' (Me)' : null}</Nav.Link>
+                <Nav.Link href={`/${user.username}/`}>{user.username}{user.user.toString() === localStorage.getItem('id') ? ' (Me)' : null}</Nav.Link>
               </td>
-              <td>{user.id in playback ? playback[user.id]['title'] + ' by ' + playback[user.id]['artists'] : null}</td>
+              <td>{user.user in playback ? playback[user.user]['title'] + ' by ' + playback[user.user]['artists'] : null}</td>
             </tr>
           ))
         )}
