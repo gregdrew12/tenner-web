@@ -9,7 +9,8 @@ function Spotify() {
     axios.get(API_URL + "spotify/is-authenticated", {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
       }
     })
     .then(res => {
@@ -17,7 +18,8 @@ function Spotify() {
         axios.get(API_URL + "spotify/get-auth-url", {
           headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           }
         })
         .then(res => {
