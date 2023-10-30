@@ -6,7 +6,7 @@ import { API_URL } from "../constants";
 function Spotify() {
   
   const authenticateSpotify = () => {
-    axios.get(API_URL + "spotify/is-authenticated", {
+    axios.get(`${API_URL}spotify/is-authenticated/`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -15,7 +15,7 @@ function Spotify() {
     })
     .then(res => {
       if (!res.data['status']) {
-        axios.get(API_URL + "spotify/get-auth-url", {
+        axios.get(`${API_URL}spotify/get-auth-url/`, {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

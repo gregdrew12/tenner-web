@@ -32,7 +32,7 @@ const Home = () => {
   }, []);
 
   const getUsers = () => {
-    axios.get(API_URL + 'api/users/', {
+    axios.get(`${API_URL}users/`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -45,7 +45,7 @@ const Home = () => {
   };
 
   const getPlayback = () => {
-    axios.get(API_URL + "spotify/playback", {
+    axios.get(`${API_URL}spotify/playback/`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

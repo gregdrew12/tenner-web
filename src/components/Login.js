@@ -21,7 +21,7 @@ export const Login = () => {
         
         try {
             // Create the POST requuest
-            const {data} = await axios.post(API_URL + 'token/', user ,{headers: {
+            const {data} = await axios.post(`${API_URL}token/`, user ,{headers: {
                 'Content-Type': 'application/json'
             }}, {withCredentials: true});
             setError('')
@@ -30,7 +30,7 @@ export const Login = () => {
             localStorage.clear();
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-            const response = await axios.get(API_URL + 'api/users/', {
+            const response = await axios.get(`${API_URL}users/`, {
                 params: {
                     email: email
                 },

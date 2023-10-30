@@ -31,7 +31,7 @@ export const Register = () => {
         }
         else {
             try {
-                const res = await axios.post(API_URL + 'api/users/', user)
+                const res = await axios.post(API_URL + 'users/', user)
                 if(res.status === 201) {
                     window.location.href = '/login';
                 }      

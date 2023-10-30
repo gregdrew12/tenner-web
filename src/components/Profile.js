@@ -14,7 +14,7 @@ const Profile = () => {
     const { username } = useParams();
 
     const followUser = () => {
-        axios.put(API_URL + 'api/users/following/' + user[0].user + '/', {
+        axios.put(API_URL + 'users/following/' + user[0].user + '/', {
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -24,7 +24,7 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        axios.get(API_URL + 'api/users/', {
+        axios.get(`${API_URL}users/`, {
             params: {
                 username: username
             }
