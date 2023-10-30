@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
 import UserList from "./UserList";
-import NewUserModal from "./NewUserModal";
 
 import axios from "axios"
 
@@ -33,7 +32,13 @@ const Home = () => {
   }, []);
 
   const getUsers = () => {
-    axios.get(API_URL + 'api/users/').then(res => {
+    axios.get(API_URL + 'api/users/', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      }
+    }).then(res => {
       setUsers(res.data)
       setUsersLoading(false);
     });
@@ -68,11 +73,6 @@ const Home = () => {
                 playback={playback}
                 resetState={resetState}
               />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <NewUserModal create={true} resetState={resetState} />
             </Col>
           </Row>
           <Row>
