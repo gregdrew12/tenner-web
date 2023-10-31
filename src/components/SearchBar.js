@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SearchBar.css';
 
-const SearchBar = () => {
+function SearchBar() {
     const navigate = useNavigate();
     const [searchFor, setSearchFor] = useState();
 

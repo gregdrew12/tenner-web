@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import React, { useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export function Header() {
+function Header() {
 
   const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();

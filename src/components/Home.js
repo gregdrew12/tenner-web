@@ -9,7 +9,7 @@ import Loading from "./Loading";
 import Spotify from "./Spotify";
 import SearchBar from "./SearchBar";
 
-const Home = () => {
+function Home() {
 
   const [usersLoading, setUsersLoading] = useState(true)
   const [playbackLoading, setPlaybackLoading] = useState(true)

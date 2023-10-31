@@ -5,7 +5,7 @@ import { API_URL } from "../constants";
 import './Login.css';
 
 // Define the Login function.
-export const Login = () => {
+function Login() {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -81,3 +81,5 @@ export const Login = () => {
         </div>
     )
 }
+
+export default Login;

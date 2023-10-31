@@ -8,7 +8,7 @@ import { API_URL } from "../constants";
 import Loading from "./Loading";
 import './Profile.css'
 
-const Profile = () => {
+function Profile() {
     const [userLoading, setUserLoading] = useState(true);
     const [followersLoading, setFollowersLoading] = useState(true);
 

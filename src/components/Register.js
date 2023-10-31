@@ -3,7 +3,7 @@ import {useState} from "react";
 import { API_URL } from "../constants";
 import './Login.css'
 
-export const Register = () => {
+function Register() {
     
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -106,3 +106,5 @@ export const Register = () => {
         </div>
     )
 }
+
+export default Register;
