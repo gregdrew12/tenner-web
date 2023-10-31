@@ -6,6 +6,7 @@ import {Register} from './components/Register';
 import Logout from './components/Logout';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import SearchResults from './components/SearchResults'
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/logout' element={<Logout/>}/>
+        <Route path='/login/' element={<Login/>}/>
+        <Route path='/register/' element={<Register/>}/>
+        <Route path='/search' element={<SearchResults/>}/>
+        <Route path='/logout/' element={<Logout/>}/>
         <Route path='/:username/' element={<Profile/>}/>
       </Routes>
     </Router>

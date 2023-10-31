@@ -7,6 +7,7 @@ import axios from "axios"
 import { API_URL } from "../constants";
 import Loading from "./Loading";
 import Spotify from "./Spotify";
+import SearchBar from "./SearchBar";
 
 const Home = () => {
 
@@ -66,6 +67,7 @@ const Home = () => {
     <>
       {usersLoading || playbackLoading ? <Loading/> : (
         <Container style={{ marginTop: "20px" }}>
+          <SearchBar/>
           <Row>
             <Col>
               <UserList
