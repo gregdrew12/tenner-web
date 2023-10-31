@@ -1,10 +1,13 @@
 import React from "react";
 import { Table } from "reactstrap";
 import Nav from 'react-bootstrap/Nav';
+import { useNavigate } from 'react-router-dom';
 
 function UserList(props) {
   const users = props.users;
   const playback = props.playback;
+  const navigate = useNavigate();
+
   return (
     <Table dark>
       <thead>
@@ -24,7 +27,7 @@ function UserList(props) {
           users.map(user => (
             <tr key={user.id}>
               <td>
-                <Nav.Link href={`/${user.username}/`}>{user.username}{user.id.toString() === localStorage.getItem('id') ? ' (Me)' : null}</Nav.Link>
+                <Nav.Link onClick={() => navigate(`/${user.username}/`)}>{user.username}{user.id.toString() === localStorage.getItem('id') ? ' (Me)' : null}</Nav.Link>
               </td>
               <td>{user.id in playback ? playback[user.id]['title'] + ' by ' + playback[user.id]['artists'] : null}</td>
             </tr>
