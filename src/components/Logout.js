@@ -15,7 +15,6 @@ function Logout() {
                     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
                 }}, {withCredentials: true});
 
-                console.log('logout', response.data)
                 localStorage.clear();
                 axios.defaults.headers.common['Authorization'] = null;
                 window.location.href = '/login/'
