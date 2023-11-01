@@ -30,17 +30,14 @@ function Login() {
             localStorage.clear();
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-            const response = await axios.get(`${API_URL}users/`, {
-                params: {
-                    email: email
-                },
+            const response = await axios.get(`${API_URL}users/${email}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                     'Authorization': 'Bearer ' + data.access
                 }
             });
-            localStorage.setItem('id', response.data[0].user);     
+            localStorage.setItem('id', response.data.id);     
             
             window.location.href = '/'
         } catch (error) {
