@@ -33,8 +33,11 @@ function Profile() {
                     break;
                 }
             }
+        }).catch(error => {
+            console.log('Error loading followers:', error)
+        }).finally(() => {
             setFollowersLoading(false);
-        })
+        });
     };
 
 
@@ -57,7 +60,10 @@ function Profile() {
             }
         }).then(res => {
             setUser(res.data);
-            setUserLoading(false);
+        }).catch(error => {
+            console.log('Error loading user:', error)
+        }).finally(() => {
+            setUserLoading(false)
         });
 
         getFollowers()
@@ -66,7 +72,7 @@ function Profile() {
     return (
         <>
             {userLoading || followersLoading ? <Loading/> :
-                user.length !== null ? (
+                user !== null ? (
                     <>
                         <h1>{user.username}</h1>
                         <h2>{isFollowing}</h2>
