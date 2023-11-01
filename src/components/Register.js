@@ -23,6 +23,9 @@ function Register() {
         if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
             setError('Invalid email.')
         }
+        else if (!/^[\w](?!.*?\.{2})[\w.]{1,28}[\w]$/i.test(username)) {
+            setError('Invalid username.')
+        }
         else if (password !== passwordRe) {
             setError('Passwords don\'t match.')
         }
