@@ -88,7 +88,7 @@ function Profile() {
                             isFollowing ? (
                                 <div className="button-container">
                                     <Button
-                                        color="primary"
+                                        color="secondary"
                                         className="float-right"
                                         onClick={followUser}
                                         style={{ minWidth: "200px" }}
