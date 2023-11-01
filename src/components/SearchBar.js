@@ -8,7 +8,7 @@ function SearchBar() {
 
     const handleSearch = (event) => {
         event.preventDefault();
-        navigate(`/search?query=${searchFor}`);
+        navigate(`/${searchFor}/`);
     };
 
     return (
