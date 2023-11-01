@@ -75,8 +75,15 @@ function Profile() {
                 user !== null ? (
                     <>
                         <h1>{user.username}</h1>
-                        <h2>{isFollowing}</h2>
-                        <h2>Followers: {followers.length} Following: {user.following.length}</h2>
+                        <div className="button-container">
+                        <button type="button" className="btn btn-primary">
+                            Followers <span className="badge badge-light">{followers.length}</span>
+                        </button>
+                        <button type="button" className="btn btn-primary">
+                            Following <span className="badge badge-light">{user.following.length}</span>
+                        </button>
+                        </div>
+                        <br/>
                         {user.id.toString() !== localStorage.getItem('id') ?
                             isFollowing ? (
                                 <div className="button-container">
