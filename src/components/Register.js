@@ -6,6 +6,7 @@ import { Title, Input, TextInput, PasswordInput, Button, Group, Box, rem } from 
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { IconAt, IconLock, IconUserCircle } from '@tabler/icons-react';
+import CircularBars from './CircularBars.js';
 
 function Register() {
     
@@ -59,6 +60,7 @@ function Register() {
 
     return(
         <Box maw={340} mx='auto' className={styles.container}>
+            <CircularBars numberOfBars={100} radius={315}/>
             <form className={styles.form} onSubmit={form.onSubmit(createUser)}>
                 <Title order={1} className={styles.title}>REGISTER</Title>
                 <Title order={4} className={styles.error}>{error}</Title>

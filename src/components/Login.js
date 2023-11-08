@@ -6,6 +6,7 @@ import { API_URL } from "../constants";
 import { Title, TextInput, PasswordInput, Button, Group, Box, rem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconAt, IconLock } from '@tabler/icons-react';
+import CircularBars from './CircularBars.js';
 
 // Define the Login function.
 function Login() {
@@ -59,6 +60,7 @@ function Login() {
     }
     return(
         <Box maw={340} mx='auto' className={styles.container}>
+            <CircularBars numberOfBars={75} radius={250}/>
             <form className={styles.form} onSubmit={form.onSubmit(submit)}>
                 <Title order={1} className={styles.title}>TENNER</Title>
                 <Title order={4} className={styles.error}>{error}</Title>
