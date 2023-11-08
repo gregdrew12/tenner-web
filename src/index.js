@@ -2,16 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import "bootstrap/dist/css/bootstrap.min.css";
+import '@mantine/core/styles.css';
+import { MantineProvider, createTheme, rem } from '@mantine/core';
 import './index.css';
 import './interceptors/axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const theme = createTheme({
+  primaryColor: 'yellow',
+  fontFamily: 'Abel, sans-serif',
+  headings: {
+    fontFamily: 'Abel, sans-serif',
+    sizes: {
+      h1: { fontSize: rem(100) }
+    }
+  },
+})
+
 root.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
-  <App />
+  <MantineProvider theme={theme} defaultColorScheme="dark">
+    <App />
+  </MantineProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
