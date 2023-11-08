@@ -1,22 +1,34 @@
 // Import the react JS packages 
+import styles from './Login.module.css';
 import axios from "axios";
 import {useState} from "react";
 import { API_URL } from "../constants";
-import './Login.css';
+import { Title, TextInput, PasswordInput, Button, Group, Box, rem } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { IconAt, IconLock } from '@tabler/icons-react';
 
 // Define the Login function.
 function Login() {
     
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('')
+    const emailIcon = <IconAt style={{ width: rem(16), height: rem(16) }} />;
+    const passwordIcon = <IconLock style={{ width: rem(18), height: rem(18) }} stroke={1.5} />;
+
+    const form = useForm({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validate: {
+            email: (value) => (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? null : 'Not a valid email.'),
+        },
+    });
 
     // Create the submit method.
-    const submit = async e => {
-        e.preventDefault();
+    const submit = async () => {
         const user = {
-            email: email,
-            password: password
+            email: form.values['email'],
+            password: form.values['password']
         };
         
         try {
@@ -30,7 +42,7 @@ function Login() {
             localStorage.clear();
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-            const response = await axios.get(`${API_URL}users/${email}/`, {
+            const response = await axios.get(`${API_URL}users/${form.values['email']}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -46,36 +58,31 @@ function Login() {
         }
     }
     return(
-        <div className="Auth-form-container">
-            <form className="Auth-form" onSubmit={submit}>
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Sign In</h3>
-                    <h4 className="Auth-form-error">{error}</h4>
-                    <div className="form-group mt-3">
-                        <label>Email</label>
-                        <input className="form-control mt-1" 
-                            placeholder="Enter Email" 
-                            name='email'  
-                            type='text' value={email}
-                            required 
-                            onChange={e => setEmail(e.target.value)}/>
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Password</label>
-                        <input name='password' 
-                            type="password"     
-                            className="form-control mt-1"
-                            placeholder="Enter password"
-                            value={password}
-                            required
-                            onChange={e => setPassword(e.target.value)}/>
-                    </div>
-                    <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </div>
-                </div>
+        <Box maw={340} mx='auto' className={styles.container}>
+            <form className={styles.form} onSubmit={form.onSubmit(submit)}>
+                <Title order={1} className={styles.title}>TENNER</Title>
+                <Title order={4} className={styles.error}>{error}</Title>
+                <TextInput
+                    size='lg'
+                    variant='unstyled'
+                    leftSection={emailIcon}
+                    placeholder='Email'
+                    inputWrapperOrder={['error', 'input']}
+                    {...form.getInputProps('email')}
+                />
+                <PasswordInput
+                    size='lg'
+                    variant='unstyled'
+                    leftSection={passwordIcon}
+                    placeholder='Password'
+                    inputWrapperOrder={['error', 'input']}
+                    {...form.getInputProps('password')}
+                />
+                <Group justify="center" mt='lg'>
+                    <Button type='submit' variant='outline' color='yellow.4'>Log In</Button>
+                </Group>
             </form>
-        </div>
+        </Box>
     )
 }
 
