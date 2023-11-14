@@ -2,6 +2,8 @@
 
 Web frontend for Tenner, the music-focused social media platform.
 
+NOT YET DEPLOYED.
+
 ## Table of Contents
 
 - [Introduction](#introduction)
