@@ -6,7 +6,8 @@ const clearPromise = () => refreshPromise = null;
 
 async function refreshToken() {
     const response = await axios.post(API_URL + 'token/refresh/', {
-        refresh:localStorage.getItem('refresh_token')
+        refresh:localStorage.getItem('refresh_token'),
+        noIntercept:true
     },{
         headers: {
             'Content-Type': 'application/json',
@@ -37,9 +38,9 @@ axios.interceptors.response.use((response) => {
     return response
 }, async function (error) {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    const noIntercept = originalRequest.data !== undefined && originalRequest.data.includes('noIntercept');
+    if (error.response.status === 401 && !originalRequest._retry && !noIntercept) {
         originalRequest._retry = true;
-
         try {
             if (!refreshPromise) {
                 refreshPromise = refreshToken().finally(clearPromise);
@@ -57,8 +58,8 @@ axios.interceptors.response.use((response) => {
 
             return axios(originalRequest);
         } catch (error) {
-            console.log('Axios interceptor error: ' + error)
-            if(error.status === 401) {
+            console.log(error)
+            if(error.response.status === 401) {
                 window.location.href = '/login'
             }
         }
